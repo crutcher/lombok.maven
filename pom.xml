@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.projectlombok</groupId>
   <artifactId>lombok-maven</artifactId>
-  <version>1.18.20.1-SNAPSHOT</version>
+  <version>1.18.30.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Maven Plugin for Project Lombok</name>
@@ -68,7 +69,7 @@
     <project.scm.id>awhitford-github-server</project.scm.id>
     <maven.api.minimum>3.3.9</maven.api.minimum>
     <maven.api.version>3.9.1</maven.api.version>
-    <lombok.version>1.18.20</lombok.version>
+    <lombok.version>1.18.30</lombok.version>
     <releaseProfiles>sonatype-oss-release</releaseProfiles>
     <version.java>8</version.java>
   </properties>
@@ -104,7 +105,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-dependency-plugin</artifactId>
-          <version>3.5.0</version>
+          <version>3.8.1</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -288,13 +289,13 @@
             <goals>
               <goal>prepare-agent</goal>
             </goals>
-            </execution>
-            <execution>
-              <id>report</id>
-              <phase>prepare-package</phase>
-              <goals>
-                <goal>report</goal>
-              </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>
@@ -316,6 +317,7 @@
   </build>
 
   <reporting>
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -325,6 +327,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.8.1</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -360,10 +363,12 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
+        <version>2.15.0</version>
       </plugin>
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.8</version>
         <reportSets>
           <reportSet>
             <reports>
@@ -376,6 +381,14 @@
       <plugin>
         <groupId>org.owasp</groupId>
         <artifactId>dependency-check-maven</artifactId>
+        <version>8.2.1</version>
+        <configuration>
+          <skipProvidedScope>true</skipProvidedScope>
+          <cveValidForHours>8</cveValidForHours>
+          <!-- Increasing from default 4000 because MacOS GitHub Action builds are failing to successfully download -->
+          <!-- Also note that NIST has a limit of 5 requests per 30 second window -->
+          <cveWaitTime>12000</cveWaitTime>
+        </configuration>
         <reportSets>
           <reportSet>
             <reports>
